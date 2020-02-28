@@ -1,0 +1,48 @@
+// Nova Filter CSS
+@import "~vue-select/src/scss/vue-select.scss";
+
+.vs__dropdown-menu {
+  position: absolute;
+  z-index: 1000;
+}
+
+.vs__dropdown-toggle {
+  padding: 0;
+  width: 100%;
+  border: none;
+  padding-right: -15px;
+
+  .vs__actions {
+    display: none;
+  }
+}
+
+.v-select {
+  box-sizing: inherit;
+  border-style: solid;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  text-transform: none;
+  font-family: inherit;
+  height: 2rem;
+  background-color: white;
+  border-width: 1px;
+  border-color: #bacad6;
+  padding-left: .75rem;
+  padding-right: 2rem;
+  border-radius: .5rem;
+  color: #7c858e;
+  -webkit-appearance: none;
+  background-repeat: no-repeat;
+  background-size: 10px 6px;
+  background-position: center right .75rem;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path fill="%2335393C" fill-rule="nonzero" d="M8.293.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 1.707.293L5 3.586 8.293.293z"/></svg>');
+  display: block;
+  width: 100%;
+}
+
+.scroll-wrap {
+  &.overflow-x-hidden { overflow: unset !important; }
+  &.overflow-y-auto { overflow: unset !important; }
+}
