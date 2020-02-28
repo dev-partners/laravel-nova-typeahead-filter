@@ -12,7 +12,7 @@ $ composer require devpartners/typeahead-filter
 
 ## Using in Laravel Nova
 
-After the package has been installed with Composer, simply create a new Nova filter or change an existing filter to use the typeahead-filter component.
+After the package has been installed with Composer, simply create a new Nova filter or change an existing filter to use the typeahead-filter component. Refer to the [Nova docs](https://nova.laravel.com/docs/2.0/filters/defining-filters.html#defining-filters) for help with creating a new filter.
 
 ```php
 
@@ -32,6 +32,6 @@ class IndustryFilter extends Filter
 
 ```
 
-## Demo
+Refresh your browser or navigate to your resource's index page to start using your typeahead select filter.
 
-(docs/demo.gif)
+![demo](docs/demo.gif)
