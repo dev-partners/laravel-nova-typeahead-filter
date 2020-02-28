@@ -1,6 +1,6 @@
 # Laravel Nova Typeahead Filter
 
-This package provides an easy-to-setup searchable select filter.
+This package provides an easy-to-setup searchable select filter for Laravel Nova resources.
 
 ## Installation
 
