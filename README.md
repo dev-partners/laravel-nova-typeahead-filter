@@ -32,3 +32,6 @@ class IndustryFilter extends Filter
 
 ```
 
+## Demo
+
+(docs/demo.gif)
