@@ -1,3 +1,5 @@
-Nova.booting((Vue, router, store) => {
-    Vue.component('typeahead-filter', require('./components/Filter'))
+import Filter from './components/Filter.vue';
+
+Nova.booting((Vue, store) => {
+    Vue.component('typeahead-filter', Filter)
 })

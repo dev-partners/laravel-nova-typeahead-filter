@@ -1,64 +1,89 @@
 <template>
-    <div>
+    <FilterContainer>
         <h3 class="text-sm uppercase tracking-wide text-80 bg-30 p-3">{{ filter.name }}</h3>
 
-        <div class="p-2">
+        <template #filter>
             <v-select
-                    v-model="selected"
-                    label="name"
-                    :options="filter.options"
-                    :value="value"
-                    :dusk="filter.name + '-filter-select'"
-                    @input="handleChange"
-                    @change="handleChange"></v-select>
-        </div>
-    </div>
+                v-model="value"
+                label="label"
+                :options="filter.options"
+                :value="value"
+                :dusk="filter.label + '-filter-select'"
+                @change="value = $event"></v-select>
+
+        </template>
+    </FilterContainer>
 </template>
 
 <script>
-    import vSelect from 'vue-select';
+import debounce from 'lodash/debounce'
+import VueSelect from 'vue-select';
 
-    export default {
-        components: {
-            'v-select': vSelect
+export default {
+    emits: ['change'],
+
+    components: {
+        'v-select': VueSelect,
+    },
+
+    props: {
+        resourceName: {
+            type: String,
+            required: true,
         },
-        props: {
-            resourceName: {
-                type: String,
-                required: true,
-            },
-            filterKey: {
-                type: String,
-                required: true,
-            },
+        filterKey: {
+            type: String,
+            required: true,
+        },
+        lens: String,
+    },
+
+    data: () => ({
+        value: null,
+        debouncedHandleChange: null,
+    }),
+
+    created() {
+        this.debouncedHandleChange = debounce(() => this.handleChange(), 500)
+
+        this.setCurrentFilterValue()
+    },
+
+    mounted() {
+        Nova.$on('filter-reset', this.setCurrentFilterValue)
+    },
+
+    beforeUnmount() {
+        Nova.$off('filter-reset', this.setCurrentFilterValue)
+    },
+
+    watch: {
+        value() {
+            this.debouncedHandleChange()
+        },
+    },
+
+    methods: {
+        setCurrentFilterValue() {
+            this.value = this.filter.currentValue
         },
 
-        data() {
-            return {
-                selected: null,
-            }
+        handleChange() {
+            this.$store.commit(`${this.resourceName}/updateFilterState`, {
+                filterClass: this.filterKey,
+                value: this.value,
+            })
+
+            this.$emit('change')
         },
+    },
 
-        methods: {
-            handleChange(event) {
-
-                this.$store.commit(`${this.resourceName}/updateFilterState`, {
-                    filterClass: this.filterKey,
-                    value: event.value,
-                })
-
-                this.$emit('change')
-            },
+    computed: {
+        filter() {
+            return this.$store.getters[`${this.resourceName}/getFilter`](
+                this.filterKey
+            )
         },
-
-        computed: {
-            filter() {
-                return this.$store.getters[`${this.resourceName}/getFilter`](this.filterKey)
-            },
-
-            value() {
-                return this.filter.currentValue
-            },
-        },
-    }
+    },
+}
 </script>
